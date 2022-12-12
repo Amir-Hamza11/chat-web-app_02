@@ -4,6 +4,7 @@ import { useModalState } from '../../misc/Custom-hooks';
 import AvatarEditor from 'react-avatar-editor';
 import { useProfile } from '../../context/ProfileContext';
 import { database, storage } from '../../misc/firebase';
+import ProfileAvatar from './ProfileAvatar';
 
 const fileInputTypes = '.png, .jpeg, .jpg';
 
@@ -15,7 +16,7 @@ const getBlob = canvas => {
 
     return new Promise((resolve, reject) => {
         canvas.toBlob(blob => {
-            
+
 
             if (blob) {
                 resolve(blob);
@@ -30,15 +31,15 @@ const getBlob = canvas => {
 const AvatarUploadBtn = () => {
     const { isOpen, open, close } = useModalState();
 
-    const {profile} = useProfile()
-    console.log(profile);
+    const { profile } = useProfile()
+    // console.log(profile);
     const [img, setImg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const avatarEditorRef = useRef();
 
     const onFileInputChange = (ev) => {
         const currFiles = ev.target.files;
-        
+
 
         if (currFiles.length === 1) {
             const file = currFiles[0];
@@ -68,8 +69,8 @@ const AvatarUploadBtn = () => {
 
             // console.log(avatarFileRef);
 
-            const uploadAvatarResult = await avatarFileRef.put( blob, {
-                 cacheControl: `public, max-age=${3600 * 24 * 3}`
+            const uploadAvatarResult = await avatarFileRef.put(blob, {
+                cacheControl: `public, max-age=${3600 * 24 * 3}`
 
             });
             // console.log(uploadAvatarResult);
@@ -94,6 +95,13 @@ const AvatarUploadBtn = () => {
 
     return (
         <div className='mt-3 text-center' >
+
+            <ProfileAvatar
+                src={profile.avatar}
+                name={profile.name}
+                className='width-200 height-200 img-fullsize font-huge'
+            />
+
             <div>
                 <label
                     htmlFor="avatar-upload"
