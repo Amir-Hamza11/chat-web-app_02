@@ -5,6 +5,7 @@ import { Loader } from 'rsuite'
 import ChatTop from '../../components/chat-window/top'
 import Messages from '../../components/chat-window/messages'
 import ChatBottom from '../../components/chat-window/bottom'
+import { CurrentRoomProvider } from '../../context/current-room.context'
 
 const Chat = () => {
 
@@ -12,8 +13,8 @@ const Chat = () => {
   
   const rooms = useRooms();
 
-  console.log(chatId);
-  console.log(rooms);
+  // console.log(chatId);
+  // console.log(rooms);
 
   if (!rooms) {
    return <Loader center vertical size='md' content='Loading' speed='slow' />
@@ -21,14 +22,20 @@ const Chat = () => {
 
   const currentRoom = rooms.find( room => room.id === chatId);
 
-  console.log(currentRoom);
+  // console.log(currentRoom);
 
   if (!currentRoom) {
     return <h6 className='text-center mt-page' >Chat {chatId} not found</h6>
   }
 
+  const {name, description} = currentRoom;
+
+  const currentRoomData ={
+    name , description
+  }
+
   return (
-    <>
+    <CurrentRoomProvider data={currentRoomData} >
     <div className='chat-top' >
       <ChatTop/>
     </div>
@@ -38,7 +45,7 @@ const Chat = () => {
     <div className='chat-bottom'>
       <ChatBottom/>
     </div>
-    </>
+    </CurrentRoomProvider>
   )
 }
 
