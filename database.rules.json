@@ -14,6 +14,14 @@
        ".write":"auth !== auth.uid"
       }
     },
+      "messages":{
+           ".read": "auth !== auth.uid",
+           ".write":"auth !== auth.uid",
+      "$message_id":{
+       ".read": "auth !== auth.uid",
+       ".write":"auth !== auth.uid"
+      }
+    },      
     ".read": false,
     ".write": false
   }
