@@ -1,3 +1,5 @@
+
+
 export function getNameInitials(name) {
 
     const splitName = name.toUpperCase().split(' ');
@@ -39,3 +41,4 @@ export async function getUserUpdates(userId, keyToUpdate, value, db){
 
     return updates;
 }
+
